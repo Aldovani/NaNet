@@ -1,40 +1,116 @@
+.container {
+  height: 100vh;
+  position: sticky;
+
+  top: 0;
+  left: 0;
+  background: var(--gray-0);
+
+}
+
 .header {
-  padding: 40px 32px 0;
+  height: 100%;
+  padding: 40px 32px;
 
   font-family: var(--inter-font);
   font-size: 1.6rem;
-  height: 100vh;
-  // position: fixed;
-  top: 0;
-  left: 0;
+
   display: flex;
   align-items: center;
+  justify-content: space-around;
   flex-direction: column;
   max-width: 125px;
-  border-right: 2px solid #DEE2E6;
+  border-right: 2px solid var(--gray-3);
+
+
+
+  .menu {
+    display: flex;
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+    padding: 12px 8px;
+    height: 40px;
+    width: 42px;
+    border-radius: 8px;
+    border: 1px solid var(--gray-6);
+    background: var(--gray-0);
+    position: relative;
+    overflow: hidden;
+    transition: scale .3s ease;
+
+    span {
+      background: var(--gray-9);
+      width: 24px;
+      height: 2px;
+      display: block;
+      transition: all .3s ease;
+      position: absolute;
+      z-index: 1;
+
+      &:nth-child(1) {
+        top: 12px;
+
+      }
+
+      &:nth-child(2) {
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      &:nth-child(3) {
+        bottom: 12px;
+      }
+
+    }
+
+    &.active {
+      span:nth-child(1) {
+        opacity: 0;
+        transform: translateX(-100%);
+      }
+
+      span:nth-child(2) {
+
+        transform: translateY(-50%) rotate(45deg);
+      }
+
+      span:nth-child(3) {
+
+        bottom: 50%;
+        transform: translateY(50%) rotate(-45deg);
+
+      }
+    }
+
+    &:hover {
+      scale: 1.05;
+    }
+  }
+
 
   .logo {
     font-style: normal;
     font-weight: 700;
-    font-size: 40px;
+    font-size: 4rem;
     line-height: 40px;
     text-decoration: none;
-    color: #212529;
+    color: var(--gray-9);
 
     span {
-      color: #339AF0;
+      color: var(--primary-color-main);
     }
 
   }
-
 
 }
 
 .navigation {
 
+
   ul {
     list-style: none;
-    margin-top: 120px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -58,6 +134,11 @@
       justify-content: center;
     }
 
+    &.active::after {
+      transform: scaleX(1);
+      transform-origin: center left;
+    }
+
     &:hover {
       &::after {
 
@@ -68,7 +149,7 @@
       .label {
         opacity: 1;
         transform: translateY(-50%) translateX(70px);
-        transition-delay: 1.5s;
+        transition-delay: 1s;
 
       }
     }
@@ -87,7 +168,7 @@
       transition: transform .3s ease;
       transform-origin: bottom right;
 
-      background: #E9ECEF;
+      background: var(--gray-2);
 
     }
 
@@ -96,16 +177,96 @@
 }
 
 .label {
-  font-size: 16px;
+  pointer-events: none;
+  font-size: 1.6rem;
   position: absolute;
   top: 50%;
   transform-origin: center;
   transform: translateY(-50%) translateX(60px);
-  border: 1px solid #DEE2E6;
+  border: 1px solid var(--gray-3);
+  z-index: 3;
   padding: 8px 12px;
-  background: #F8F9FA;
-  color: #868E96;
+  background: var(--gray-0);
+  color: var(--gray-6);
   border-radius: 16px;
   opacity: 0;
   transition: all .5s ease;
+}
+
+@media (max-width:800px) {
+  .container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: fit-content;
+    z-index: 5;
+  }
+
+  .header {
+    height: fit-content;
+    max-width: 100%;
+    border: 0;
+    border-bottom: 2px solid var(--gray-3);
+
+    .container-menu {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .menu {
+        display: flex;
+      }
+    }
+  }
+
+  .navigation {
+    display: none;
+
+    &.active {
+      margin-top: 32px;
+      display: block;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
+    ul {
+      flex-direction: row;
+      justify-content: space-between;
+      flex-wrap: wrap;
+
+      li {
+
+        &::after {
+          transform: scaleY(0);
+          transform-origin: bottom;
+        }
+
+        &:hover {
+          &::after {
+            transform: scaleY(1);
+            transform-origin: top;
+
+          }
+
+          .label {
+            // transform: translateY(0) translateX(-50%);
+            // bottom: -32px;
+            transform: translateY(10%) translateX(50%);
+
+          }
+
+        }
+      }
+    }
+  }
+
+  .label {
+    transform: translateY(20%) translateX(50%);
+    right: 50%;
+    top: 100%;
+    height: fit-content;
+
+  }
 }

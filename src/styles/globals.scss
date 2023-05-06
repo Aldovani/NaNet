@@ -1,4 +1,28 @@
-:root {}
+:root {
+  --gray-9: #212529;
+  --gray-6: #868E96;
+  --gray-5: #ADB5BD;
+  --gray-4: #CED4DA;
+  --gray-3: #DEE2E6;
+  --gray-2: #E9ECEF;
+  --gray-0: #F8F9FA;
+
+  --primary-color-light: #74C0FC;
+  --primary-color-main: #339AF0;
+  --primary-color-dark: #1C7ED6;
+
+  font-size: 62.5%;
+
+  @media(max-width:1200px) {
+
+    font-size: 55%;
+  }
+
+  @media(max-width:600px) {
+    font-size: 50%;
+
+  }
+}
 
 * {
   box-sizing: border-box;
@@ -7,12 +31,19 @@
 }
 
 body {
-  background: #F8F9FA;
+  background: var(--gray-0);
 }
 
 .global-container {
   display: grid;
-  position: absolute;
   inset: 0;
   grid-template-columns: 125px 1fr;
+}
+
+@media (max-width:800px) {
+  .global-container {
+    padding: 80px 0;
+    grid-template-columns: 1fr;
+  }
+
 }

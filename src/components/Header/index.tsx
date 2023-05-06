@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import {
   FiAward,
   FiCode,
@@ -12,71 +12,96 @@ import {
 
 import style from "./style.module.scss";
 import { Inter } from "next/font/google";
+import { useRouter } from "next/router";
 const inter = Inter({
   variable: "--inter-font",
   subsets: ["latin"],
 });
 
 const Header: React.FC = () => {
+  const [isOpenNavigation, setIsOpenNavigation] = useState(false);
+
+  const router = useRouter();
+  const { resource } = router.query;
+
+  function handleCloseMenu() {
+    setIsOpenNavigation(false);
+  }
+
   return (
-    <header className={`${style.header} ${inter.variable}`}>
-      <Link href="/" className={style.logo}>
-        N<span>N</span>
-      </Link>
+    <div className={style.container}>
+      <header className={`${style.header} ${inter.variable}`}>
+        <div className={style["container-menu"]}>
+          <Link href="/" className={style.logo}>
+            N<span>N</span>
+          </Link>
 
-      <nav className={style.navigation}>
-        <ul>
-          <li>
-            <Link href="/apis">
-              <FiCpu size={24} stroke="#868E96" />
-            </Link>
-            <span className={style.label}>Apis</span>
-          </li>
+          <button
+            onClick={() => setIsOpenNavigation((prev) => !prev)}
+            className={`${style.menu} ${isOpenNavigation && style.active}`}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
 
-          <li>
-            <Link href="/colors">
-              <FiDroplet size={24} stroke="#868E96" />
-            </Link>
-            <span className={style.label}>Cores</span>
-          </li>
+        <nav
+          className={`${style.navigation} ${isOpenNavigation && style.active}`}
+        >
+          <ul>
+            <li className={resource === "apis" ? style.active : ""}>
+              <Link href="/resources/apis" onClick={handleCloseMenu}>
+                <FiCpu size={24} stroke="#868E96" />
+              </Link>
+              <span className={style.label}>Apis</span>
+            </li>
 
-          <li>
-            <Link href="/library">
-              <FiCode size={24} stroke="#868E96" />
-            </Link>
-            <span className={style.label}>Bibliotecas</span>
-          </li>
+            <li className={resource === "colors" ? style.active : ""}>
+              <Link href="/resources/colors" onClick={handleCloseMenu}>
+                <FiDroplet size={24} stroke="#868E96" />
+              </Link>
+              <span className={style.label}>Cores</span>
+            </li>
 
-          <li>
-            <Link href="/typography">
-              <FiType size={24} stroke="#868E96" />
-            </Link>
-            <span className={style.label}>Fontes</span>
-          </li>
+            <li className={resource === "libraries" ? style.active : ""}>
+              <Link href="/resources/libraries" onClick={handleCloseMenu}>
+                <FiCode size={24} stroke="#868E96" />
+              </Link>
+              <span className={style.label}>Bibliotecas</span>
+            </li>
 
-          <li>
-            <Link href="/icons">
-              <FiAward size={24} stroke="#868E96" />
-            </Link>
-            <span className={style.label}>Ícones</span>
-          </li>
+            <li className={resource === "typographies" ? style.active : ""}>
+              <Link href="/resources/typographies" onClick={handleCloseMenu}>
+                <FiType size={24} stroke="#868E96" />
+              </Link>
+              <span className={style.label}>Fontes</span>
+            </li>
 
-          <li>
-            <Link href="/image">
-              <FiImage size={24} stroke="#868E96" />
-            </Link>
-            <span className={style.label}>Imagens & Ilustrações</span>
-          </li>
+            <li className={resource === "icons" ? style.active : ""}>
+              <Link href="/resources/icons" onClick={handleCloseMenu}>
+                <FiAward size={24} stroke="#868E96" />
+              </Link>
+              <span className={style.label}>Ícones</span>
+            </li>
 
-          <li>
-            <Link href="/websites">
-              <FiGlobe size={24} stroke="#868E96" />
-            </Link>
-            <span className={style.label}>Inspirações</span>
-          </li>
-        </ul>
-      </nav>
-    </header>
+            <li className={resource === "images" ? style.active : ""}>
+              <Link href="/resources/images" onClick={handleCloseMenu}>
+                <FiImage size={24} stroke="#868E96" />
+              </Link>
+              <span className={style.label}>Imagens & Ilustrações</span>
+            </li>
+
+            <li className={resource === "websites" ? style.active : ""}>
+              <Link href="/resources/websites" onClick={handleCloseMenu}>
+                <FiGlobe size={24} stroke="#868E96" />
+              </Link>
+              <span className={style.label}>Blogs & Websites</span>
+            </li>
+          </ul>
+        </nav>
+      </header>
+    </div>
   );
 };
 
