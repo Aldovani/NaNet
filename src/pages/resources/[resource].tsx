@@ -61,7 +61,7 @@ export default function Resource({ links, category }: IResource) {
             target="_blank"
             className={style.item}
           >
-            <Image alt="" src={link.imageUrl} width={80} height={80} />
+            <Image alt={link.name} src={link.imageUrl} width={80} height={80} />
             <h3>{link.name}</h3>
             <span>{category.name}</span>
           </Link>
