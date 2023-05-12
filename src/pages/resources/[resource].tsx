@@ -6,6 +6,8 @@ import Link from "next/link";
 
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { database } from "@/services/firebase";
 
 type ILinks = {
   url: string;
@@ -81,12 +83,13 @@ export const getStaticPaths: GetStaticPaths = () => {
       { params: { resource: "typographies" } },
     ],
 
-    fallback: "blocking", // can also be true or 'blocking'
+    fallback: "blocking", 
   };
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { resource } = context.params as { resource: Resource };
+
   const categories = {
     apis: {
       name: "Apis",
@@ -140,38 +143,16 @@ Imagens e ilustrações:
     };
   }
 
-  // const resources = collection(database, "recursos");
-  // const q = query(resources, where("category", "==", resource));
-  let links: ILinks[] = [
-    {
-      category: "apis",
-      imageUrl:
-        "https://firebasestorage.googleapis.com/v0/b/nanet-fc7e5.appspot.com/o/poke.png?alt=media&token=fc79ece4-d5c2-4668-b9af-e1df537facb7",
-      name: "PokeApi",
-      url: "https://www.pokeapi.co",
-    },
-    {
-      category: "apis",
-      imageUrl:
-        "https://firebasestorage.googleapis.com/v0/b/nanet-fc7e5.appspot.com/o/poke.png?alt=media&token=fc79ece4-d5c2-4668-b9af-e1df537facb7",
-      name: "PokeApi",
-      url: "",
-    },
-    {
-      category: "apis",
-      imageUrl:
-        "https://firebasestorage.googleapis.com/v0/b/nanet-fc7e5.appspot.com/o/poke.png?alt=media&token=fc79ece4-d5c2-4668-b9af-e1df537facb7",
-      name: "PokeApi",
-      url: "",
-    },
-  ];
+  const resources = collection(database, "recursos");
+  const q = query(resources, where("category", "==", resource));
+  let links: ILinks[] = [];
 
-  // const querySnapshot = await getDocs(q);
+  const querySnapshot = await getDocs(q);
 
-  // querySnapshot.forEach((doc) => {
-  //   const { name, imageUrl, url, category } = doc.data();
-  //   links.push({ name, imageUrl, url, category });
-  // });
+  querySnapshot.forEach((doc) => {
+    const { name, imageUrl, url, category } = doc.data();
+    links.push({ name, imageUrl, url, category });
+  });
 
   return {
     props: {
