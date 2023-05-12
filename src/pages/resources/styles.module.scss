@@ -47,7 +47,8 @@
   img {
     border: 1px solid var(--gray-3);
     border-radius: 16px;
-
+    object-fit: contain;
+    padding: 15px;
   }
 
   h3 {

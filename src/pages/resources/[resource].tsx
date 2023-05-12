@@ -63,7 +63,7 @@ export default function Resource({ links, category }: IResource) {
           >
             <Image alt="" src={link.imageUrl} width={80} height={80} />
             <h3>{link.name}</h3>
-            <span>{link.category}</span>
+            <span>{category.name}</span>
           </Link>
         ))}
       </main>
@@ -83,7 +83,7 @@ export const getStaticPaths: GetStaticPaths = () => {
       { params: { resource: "typographies" } },
     ],
 
-    fallback: "blocking", 
+    fallback: "blocking",
   };
 };
 
