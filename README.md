@@ -32,7 +32,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 ## 💻 Projeto
 
-O NaNet consiste em criar um website que reúna links de recursos necessários para projetos front end, como bibliotecas de código aberto, frameworks, ferramentas de design, tutoriais e artigos úteis. O objetivo é fornecer uma lista abrangente de recursos para desenvolvedores front end, economizando tempo e esforço na busca por informações relevantes.
+O NaNet consiste em um website que reúna links de recursos necessários para projetos front end, como bibliotecas de código aberto, frameworks, ferramentas de design, tutoriais e artigos úteis. O objetivo é fornecer uma lista abrangente de recursos para desenvolvedores front end, economizando tempo e esforço na busca por informações relevantes.
 
 
 
